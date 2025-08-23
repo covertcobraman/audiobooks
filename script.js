@@ -1,7 +1,10 @@
 
+// library object loaded from another script
+
 let chapterTitle;
 let audio;
 let select;
+let playPause;
 
 let data = { idx: 0, time: 0.0 };
 
@@ -26,11 +29,17 @@ function saveIdx() {
 
 function loadData() {
     let stored = localStorage.getItem(getSaveId());
-    data = stored ? JSON.parse(stored) : { idx: 0, time: 0.0 };
+    // data = stored ? JSON.parse(stored) : { idx: 0, time: 0.0 };
+    Object.assign(data, stored ? JSON.parse(stored) : { idx: 0, time: 0 });
 
     console.log("Loading: " + JSON.stringify(data));
     loadAudio(data.idx);
-    audio.currentTime = data.time;
+
+    // audio.load() happens asynchronously
+    audio.addEventListener("loadedmetadata", () => {
+        audio.currentTime = data.time;
+    }, { once: true });
+    // audio.currentTime = data.time;
 }
 
 function loadBook() {
@@ -92,16 +101,28 @@ function playPauseAudio() {
         audio.pause();
 }
 
+function onPlay() {
+    playPause.textContent = "Pause";
+}
+
+function onPause() {
+    playPause.textContent = "Play";
+    saveTime();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded");
     chapterTitle = document.getElementById("chapterTitle");
     audio = document.getElementById("audio");
+    audio.addEventListener("seeked", saveTime);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
     setupSelect();
     let previous = document.getElementById("previous");
     let next = document.getElementById("next");
     let rewind = document.getElementById("rewind");
     let forward = document.getElementById("forward");
-    let playPause = document.getElementById("playPause");
+    playPause = document.getElementById("playPause");
     playPause.addEventListener("click", playPauseAudio);
     audio.addEventListener("ended", () => loadAudioOffset(1));
     previous.addEventListener("click", () => loadAudioOffset(-1));
@@ -110,5 +131,5 @@ document.addEventListener("DOMContentLoaded", () => {
     forward.addEventListener("click", () => skipAudioTime(10));
     loadBook();
     loadData();
-    setInterval(tick, 2000);
+    setInterval(tick, 10000);
 });

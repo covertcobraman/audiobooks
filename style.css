@@ -56,7 +56,9 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     text-align: center;
-    touch-action: manipulation;
+    touch-action: manipulation; /* stop mobile zoom */
+    user-select: none; /* stop highlight/selection */
+    -webkit-user-select: none; /* needed for Safari/iOS */
     flex: 1;
 }
 
