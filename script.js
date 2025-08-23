@@ -85,6 +85,13 @@ function tick() {
     saveTime();
 }
 
+function playPauseAudio() {
+    if (audio.paused)
+        audio.play();
+    else
+        audio.pause();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded");
     chapterTitle = document.getElementById("chapterTitle");
@@ -94,6 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let next = document.getElementById("next");
     let rewind = document.getElementById("rewind");
     let forward = document.getElementById("forward");
+    let playPause = document.getElementById("playPause");
+    playPause.addEventListener("click", playPauseAudio);
     audio.addEventListener("ended", () => loadAudioOffset(1));
     previous.addEventListener("click", () => loadAudioOffset(-1));
     next.addEventListener("click", () => loadAudioOffset(1));
