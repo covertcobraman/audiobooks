@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dragon Reborn Audiobook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- <h1>The Dragon Reborn</h1> -->
+        <h2 id="chapterTitle"></h2>
+
+        <audio id="audio" controls>
+            <source src="https://samplelib.com/lib/preview/mp3/sample-3s.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="controls-row">
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
+        </div>
+
+        <div class="controls-row">
+            <button id="rewind">« 10s</button>
+            <button id="forward">10s »</button>
+        </div>
+        <select id="select"></select>
+    </div>
+
+    <script src="library.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
