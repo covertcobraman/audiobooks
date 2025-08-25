@@ -60,7 +60,10 @@ function loadAudio(idx) {
 function loadAudioOffset(offset) {
     let idx = (data.idx + library[book].tracks.length + offset) % library[book].tracks.length;
     loadAudio(idx);
-    audio.play();
+    // audio.play();
+    audio.addEventListener("loadedmetadata", () => {
+        audio.play();
+    }, { once: true });
     saveIdx();
 }
 
