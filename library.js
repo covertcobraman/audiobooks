@@ -116,5 +116,22 @@ const library = {
             "the-shadow-rising-audiobook-free/1656924774697/49 - The Shadow Rising Book Four Of The Wheel Of Time-941813842.mp3",
             "the-shadow-rising-audiobook-free/1656924774697/50 - The Shadow Rising Book Four Of The Wheel Of Time-941813833.mp3"
         ]
+    },
+    "The Shadow Rising V2": {
+        baseUrl: "https://ipaudio6.com/wp-content/uploads/BOOKAUDIO/Shadow%20Rising/",
+        tracks: [
+            "01.mp3?_=1",
+            "02.mp3?_=2",
+            "03.mp3?_=3",
+            "04.mp3?_=4",
+            "05.mp3?_=5",
+            "06.mp3?_=6",
+            "07.mp3?_=7",
+            "08.mp3?_=8",
+            "09.mp3?_=9",
+            "10.mp3?_=10",
+            "11.mp3?_=11",
+            "12.mp3?_=12",
+        ]
     }
 }
