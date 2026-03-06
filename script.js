@@ -50,7 +50,7 @@ function loadAudio(idx) {
     console.log("Audio load index: " + idx);
     console.log("Audio load url: " + getAduioUrl(idx));
     audio.load();
-    chapterTitle.textContent = "Track " + idx;
+    chapterTitle.textContent = "Track " + idx + "/" + library[book].trackCount;
     data.idx = idx;
 }
 

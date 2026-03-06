@@ -19,4 +19,8 @@ const library = {
         "postID": 202603067835,
         "trackCount": 29,
     },
+    "A Crown of Swords": {
+        "postID": 202603069650,
+        "trackCount": 9,
+    },
 }
