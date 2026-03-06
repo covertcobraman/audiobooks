@@ -1,14 +1,15 @@
 
-// library object loaded from another script
+// library object loaded from index.html
 
 let chapterTitle;
 let audio;
 let select;
 let playPause;
 
-let data = { idx: 0, time: 0.0 };
+// index starts at 1
+let data = { idx: 1, time: 0.0 };
 
-let tracks;
+// key for library
 let book;
 
 function getSaveId() {
@@ -29,17 +30,13 @@ function saveIdx() {
 
 function loadData() {
     let stored = localStorage.getItem(getSaveId());
-    // data = stored ? JSON.parse(stored) : { idx: 0, time: 0.0 };
-    Object.assign(data, stored ? JSON.parse(stored) : { idx: 0, time: 0 });
+    Object.assign(data, stored ? JSON.parse(stored) : { idx: 1, time: 0 });
 
     console.log("Loading: " + JSON.stringify(data));
-    loadAudio(data.idx);
-
-    // audio.load() happens asynchronously
     audio.addEventListener("loadedmetadata", () => {
         audio.currentTime = data.time;
     }, { once: true });
-    // audio.currentTime = data.time;
+    loadAudio(data.idx);
 }
 
 function loadBook() {
@@ -49,18 +46,19 @@ function loadBook() {
 }
 
 function loadAudio(idx) {
-    idx = idx % library[book].tracks.length;
+    audio.src = getAduioUrl(idx)
     console.log("Audio load index: " + idx);
-    audio.src = library[book].baseUrl + library[book].tracks[idx];
+    console.log("Audio load url: " + getAduioUrl(idx));
     audio.load();
     chapterTitle.textContent = "Track " + idx;
     data.idx = idx;
 }
 
 function loadAudioOffset(offset) {
-    let idx = (data.idx + library[book].tracks.length + offset) % library[book].tracks.length;
+    // Loop index (its one based)
+    let max = library[book].trackCount
+    let idx = ((data.idx - 1 + offset + max) % max) + 1
     loadAudio(idx);
-    // audio.play();
     audio.addEventListener("loadedmetadata", () => {
         audio.play();
     }, { once: true });
@@ -90,6 +88,15 @@ function setupSelect() {
     });
 
     select.addEventListener("change", selectBook);
+}
+
+function getAduioUrl(idx) {
+    // ex: https://audio.naudios.com/audios.php?no=4&postID=202603068037
+    let url = "https://audio.naudios.com/audios.php?no=";
+    url += idx
+    url += "&postID=";
+    url += library[book].postID;
+    return url
 }
 
 function tick() {
